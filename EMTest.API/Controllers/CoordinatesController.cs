@@ -15,7 +15,12 @@ namespace EMTest.API.Controllers
         public CoordinatesController(ICoordinatesRepository coordinatesRepository)
         {
 			_coordinatesRepository = coordinatesRepository;
+		}
 
+        [HttpGet]
+		public ActionResult<IEnumerable<Coordinate>> Generate([Required] int count)
+		{
+			return Ok(_coordinatesRepository.Generate(count));
 		}
 
 		[HttpPost]

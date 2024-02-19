@@ -1,13 +1,26 @@
 ﻿using EMTest.API.Models;
 using EMTest.API.Repositories.IRepositories;
+using System;
 
 namespace EMTest.API.Repositories
 {
 	public class CoordinatesRepository : ICoordinatesRepository
 	{
-		public IEnumerable<Coordinate> Generate()
+		public IEnumerable<Coordinate> Generate(int count)
 		{
-			throw new NotImplementedException();
+			Random rnd = new ();
+			List<Coordinate> coordinates = new (count);
+
+			for (int i = 0; i < count; i++)
+			{
+				coordinates.Add(new Coordinate
+				{
+					Latitude = rnd.NextDouble() * 180 - 90,
+					Longitude = rnd.NextDouble() * 360 - 180
+				});
+			}
+
+			return coordinates;
 		}
 
 		public Distance SumCoordinatesDistance(List<Coordinate> coordinates)
