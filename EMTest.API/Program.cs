@@ -1,10 +1,20 @@
+using EMTest.API.Repositories;
+using EMTest.API.Repositories.IRepositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+
+
 builder.Services.AddControllers();
+
+builder.Services.AddScoped<ICoordinatesRepository, CoordinatesRepository>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
 
 var app = builder.Build();
 
