@@ -20,6 +20,11 @@ namespace EMTest.API.Controllers
         [HttpGet]
 		public ActionResult<IEnumerable<Coordinate>> Generate([Required] int count)
 		{
+			if (count < 1) 
+			{
+				return BadRequest();
+			}
+
 			return Ok(_coordinatesRepository.Generate(count));
 		}
 
