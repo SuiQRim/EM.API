@@ -6,7 +6,7 @@ namespace EMTest.API.Repositories.IRepositories
 	{
 		public IEnumerable<Coordinate> Generate(int count);
 
-		public Distance SumCoordinatesDistance(List<Coordinate> coordinates);
+		public Distance SumCoordinatesDistance(List<Coordinate>? coordinates);
 
 	}
 }

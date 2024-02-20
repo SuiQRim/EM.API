@@ -24,11 +24,11 @@ namespace EMTest.API.Repositories
 			return coordinates;
 		}
 
-		public Distance SumCoordinatesDistance(List<Coordinate> coordinates)
+		public Distance SumCoordinatesDistance(List<Coordinate>? coordinates)
 		{
 			double sum = 0;
 
-			if (coordinates.Count < 2)
+			if (coordinates == null || coordinates.Count < 2)
 			{
 				return new Distance { Metres = 0, Miles = 0};
 			}

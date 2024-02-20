@@ -24,7 +24,7 @@ namespace EMTest.API.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult<Distance> Distance(List<Coordinate> coordinates)
+		public ActionResult<Distance> Distance(List<Coordinate>? coordinates)
 		{
 			return Ok(_coordinatesRepository.SumCoordinatesDistance(coordinates));
 		}
