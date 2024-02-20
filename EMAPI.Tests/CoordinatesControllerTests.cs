@@ -5,46 +5,32 @@ using System.Text;
 
 namespace EMAPI.Tests
 {
-	internal class CoordinatesControllerTests { 
+	internal class CoordinatesControllerTests {
 
 		[Test]
-		public async Task GenerateCoordinates_Count2_ReturnOk()
+		[TestCase(2, HttpStatusCode.OK)]
+		[TestCase(0, HttpStatusCode.BadRequest)]
+		public async Task GenerateCoordinates_Count_ReturnCode(int value, HttpStatusCode expected)
 		{
 			//Arrange
 			EMApplicationFactory application = new ();
 			HttpClient httpClient = application.CreateClient();
-			int count = 2;
 
 			//Act
-			HttpResponseMessage response = await httpClient.GetAsync($"/api/coordinates?count={count}");
+			HttpResponseMessage response = await httpClient.GetAsync($"/api/coordinates?count={value}");
 
 			//Assert
-			Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+			Assert.That(response.StatusCode, Is.EqualTo(expected));
 
 		}
 
+
 		[Test]
-		public async Task GenerateCoordinates_Count0_ReturnBadRequest()
+		public async Task SumCoordinatesDistances_2Coordinates_ReturnCompletedDistance()
 		{
 			//Arrange
 			EMApplicationFactory application = new();
 			HttpClient httpClient = application.CreateClient();
-			int count = 0;
-
-			//Act
-			HttpResponseMessage response = await httpClient.GetAsync($"/api/coordinates?count={count}");
-
-			//Assert
-			Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
-
-		}
-
-		[Test]
-		public async Task SumCoordinatesDistances_CoordinatesCount2_ReturnCompletedDistance()
-		{
-			//Arrange
-			EMApplicationFactory application = new();
-			HttpClient httpClient = application.CreateClient();	
 			Coordinate[] coordinates =
 			[
 				new ()
@@ -63,44 +49,39 @@ namespace EMAPI.Tests
 			Distance? distance = await SumCoordinatesDistancesRequest(httpClient, coordinates);
 
 			//Assert
-			Assert.That(distance.Metres > 0, Is.True);
+			Assert.That(distance.Metres > 0 && distance.Miles > 0, Is.True);
 
 		}
 
 
+		private static readonly object[] _incompleteLists =
+		[
+			new object[] {
+				new Coordinate[]
+				{
+					new ()
+					{
+						Latitude = 60,
+						Longitude = 30
+					}
+				},
+			},
+			new object[] {
+				null
+			}
+		];
+
 		[Test]
-		public async Task SumCoordinatesDistances_CoordinatesCount1_ReturnZeroDistance()
+		[TestCaseSource(nameof(_incompleteLists))]
+		public async Task SumCoordinatesDistances_IncompleteList_ReturnZeroDistance(Coordinate[] coordinates)
 		{
 			//Arrange
 			EMApplicationFactory application = new();
 			HttpClient httpClient = application.CreateClient();
-			Coordinate[] coordinates =
-			[
-				new ()
-				{
-					Latitude = 60.021158,
-					Longitude = 30.321135
-				}
-			];
 
 			//Act
 			Distance? distance = await SumCoordinatesDistancesRequest(httpClient, coordinates);
 
-			//Assert
-			Assert.That(distance.Metres, Is.EqualTo(0));
-
-		}
-
-		[Test]
-		public async Task SumCoordinatesDistances_Null_ReturnZeroDistance()
-		{
-			//Arrange
-			EMApplicationFactory application = new();
-			HttpClient httpClient = application.CreateClient();
-
-			//Act
-			Distance? distance = await SumCoordinatesDistancesRequest(httpClient, null);
-			
 			//Assert
 			Assert.That(distance.Metres, Is.EqualTo(0));
 
