@@ -9,15 +9,16 @@ namespace EMTest.API.Repositories
 		public IEnumerable<Coordinate> Generate(int count)
 		{
 			Random rnd = new ();
-			List<Coordinate> coordinates = new (count);
+
+			Coordinate [] coordinates = new Coordinate[count];
 
 			for (int i = 0; i < count; i++)
 			{
-				coordinates.Add(new Coordinate
+				coordinates[i] = new Coordinate
 				{
 					Latitude = rnd.NextDouble() * 180 - 90,
 					Longitude = rnd.NextDouble() * 360 - 180
-				});
+				};
 			}
 
 			return coordinates;
