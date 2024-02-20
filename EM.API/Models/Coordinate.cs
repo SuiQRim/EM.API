@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EMTest.API.Models
+namespace EM.API.Models
 {
 	public class Coordinate
 	{

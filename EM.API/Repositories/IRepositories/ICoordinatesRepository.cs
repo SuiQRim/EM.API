@@ -1,6 +1,6 @@
-﻿using EMTest.API.Models;
+﻿using EM.API.Models;
 
-namespace EMTest.API.Repositories.IRepositories
+namespace EM.API.Repositories.IRepositories
 {
 	public interface ICoordinatesRepository
 	{

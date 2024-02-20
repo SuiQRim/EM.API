@@ -1,5 +1,5 @@
-using EMTest.API.Repositories;
-using EMTest.API.Repositories.IRepositories;
+using EM.API.Repositories;
+using EM.API.Repositories.IRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

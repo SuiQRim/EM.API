@@ -1,4 +1,4 @@
-﻿namespace EMTest.API.Models
+﻿namespace EM.API.Models
 {
 	public class Distance
 	{

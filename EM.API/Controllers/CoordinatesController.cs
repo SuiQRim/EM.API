@@ -1,10 +1,10 @@
-﻿using EMTest.API.Models;
-using EMTest.API.Repositories;
-using EMTest.API.Repositories.IRepositories;
+﻿using EM.API.Models;
+using EM.API.Repositories;
+using EM.API.Repositories.IRepositories;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace EMTest.API.Controllers
+namespace EM.API.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
