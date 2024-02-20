@@ -67,8 +67,12 @@ namespace EMAPI.Tests
 				},
 			},
 			new object[] {
+				Array.Empty<Coordinate>()
+			},
+			new object[] {
 				null
-			}
+			},
+
 		];
 
 		[Test]
